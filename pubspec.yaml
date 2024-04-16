@@ -1,0 +1,43 @@
+name: catbreeds
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  skeletonizer: ^1.1.1
+  get_it: ^7.6.9
+  dartz: ^0.10.1
+  dio: ^5.4.3+1
+  flutter_bloc: ^8.1.5
+  floor: ^1.4.2
+  sqflite: ^2.3.3
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/fonts/
+    - assets/json/
+
+fonts:
+  - family: Hind
+    fonts:
+      - asset: assets/fonts/HindMadurai.ttf
+  - family: Monstserrat
+    fonts:
+      - asset: assets/fonts/MontserratFontwght.ttf
