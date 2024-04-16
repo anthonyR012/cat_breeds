@@ -22,7 +22,7 @@ class ListCatsPage extends StatelessWidget {
             } else if (state is GetCatsLoaded) {
               cats = state.cats;
             }
-            return isLoading
+            return !isLoading
                 ? Center(
                   child: ListView.builder(
                       itemBuilder: (context, index) {

@@ -12,7 +12,7 @@ const String fontFamilyHind = "Hind";
 const String imageCat = "image_cat.png";
 
 //json
-// const String papelLoadJson = "papel_load.json";
+const String animationCat = "animation_cat.json";
 
 
 
