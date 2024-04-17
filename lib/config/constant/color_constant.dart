@@ -15,10 +15,10 @@ final LinearGradient glamGradientTheme = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [
-  const Color(0xFF028D92),
-  const Color(0xFF037D80).withOpacity(0.95),
-  const Color(0xFF026D6E).withOpacity(0.8),
-  const Color(0xFF025E5E).withOpacity(0.6),
+  const Color(0xFFAAB3AB),
+  const Color(0xFFAAB3AB).withOpacity(0.95),
+  const Color(0xFFAAB3AB).withOpacity(0.8),
+  const Color(0xFFAAB3AB).withOpacity(0.6),
   ],
 );
 const LinearGradient darkStrongGradientTheme = LinearGradient(

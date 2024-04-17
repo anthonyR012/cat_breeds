@@ -39,6 +39,7 @@ class InputTextWidget extends StatelessWidget {
       child: TextFormField(
         focusNode: focusNode,
         controller: controller,
+        textAlign: TextAlign.center,
         onFieldSubmitted: onSubmitted,
         onChanged: onChanged,
         keyboardType: TextInputType.text,

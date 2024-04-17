@@ -46,18 +46,17 @@ class _ListCatsPageState extends State<ListCatsPage> {
         slivers: <Widget>[
           SliverAppBarCustom(context: context),
           SliverToBoxAdapter(
-              child: RefreshIndicator(
-                onRefresh: () => Future.value(true),
-                child: Padding(
-                            padding: const EdgeInsets.all(paddingInput15),
-                            child: InputTextWidget(
-                width: width * 0.6,
+              child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(paddingInput15),
+              child: InputTextWidget(
+                width: width * 0.8,
                 height: 30,
                 onChanged: _filterText,
                 focusNode: focusFilter,
-                            ),
-                          ),
-              )),
+              ),
+            ),
+          )),
           BlocProvider.value(
             value: Env.sl<CatCubit>(),
             child: BlocBuilder<CatCubit, CatState>(
@@ -65,9 +64,10 @@ class _ListCatsPageState extends State<ListCatsPage> {
                 bool isLoading =
                     state is! GetCatsLoaded && state is! GetCatsFilterLoaded;
                 if (state is CatInitial) {
-                  Env.sl<CatCubit>().doGetCats();
+                  _getCats();
                 } else if (state is CatError) {
-                  return const SliverToBoxAdapter(child: CenterInfoWidget());
+                  return SliverToBoxAdapter(
+                      child: CenterInfoWidget(retryTap: _getCats));
                 } else if (state is GetCatsLoaded) {
                   completeCats = state.cats;
                 } else if (state is GetCatsFilterLoaded) {
@@ -102,6 +102,10 @@ class _ListCatsPageState extends State<ListCatsPage> {
         ],
       ),
     );
+  }
+
+  void _getCats() {
+    Env.sl<CatCubit>().doGetCats();
   }
 
   void _filterText(String value) async {

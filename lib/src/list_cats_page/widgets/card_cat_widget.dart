@@ -36,7 +36,7 @@ class _CardCatState extends State<CardCat> {
     return Skeletonizer(
       enabled: widget.isLoading,
       child: Container(
-        padding: const EdgeInsets.all(paddingInput15),
+        padding: const EdgeInsets.all(paddingInput15 - 5),
         width: widget.width,
         height: widget.height,
         child: Column(
