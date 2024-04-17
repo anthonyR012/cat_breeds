@@ -8,3 +8,11 @@ void pushReplacementWidget(Widget goTo, BuildContext context,
       duration: durationAnimation,
       color: colorAnimation));
 }
+
+void pushWidget(Widget goTo, BuildContext context,
+    {int durationAnimation = 1000, Color colorAnimation = Colors.transparent}) {
+  Navigator.of(context).push(CustomPageRoute(
+      builder: (_) => goTo,
+      duration: durationAnimation,
+      color: colorAnimation));
+}

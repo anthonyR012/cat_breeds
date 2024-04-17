@@ -1,8 +1,11 @@
 import 'package:catbreeds/config/constant/assets_constant.dart';
-import 'package:catbreeds/config/constant/end_point_constant.dart';
+import 'package:catbreeds/config/constant/color_constant.dart';
 import 'package:catbreeds/config/constant/string_constant.dart';
 import 'package:catbreeds/config/constant/values_constant.dart';
+import 'package:catbreeds/config/functions/navigator_widgets_function.dart';
 import 'package:catbreeds/model/cat_model.dart';
+import 'package:catbreeds/src/detail_cat_page/detail_cat_page.dart';
+import 'package:catbreeds/src/widgets/image_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -34,8 +37,38 @@ class CardCat extends StatelessWidget {
                 Row(
                   children: [
                     Text(isLoading ? (loadingData * 2) : cat!.name),
-                    Spacer(),
-                    Text("Mas..."),
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        if (cat == null) return;
+                        pushWidget(DetailCat(cat: cat!), context);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(color: appBarColorTheme),
+                            borderRadius:const 
+                                BorderRadius.all(Radius.circular(rounded28))),
+                        child: const Row(
+                          children: [
+                            Text(
+                              "Mas",
+                              style: TextStyle(
+                                  fontFamily: fontFamilyHind,
+                                  fontSize: messageSize,
+                                  color: appBarColorTheme),
+                            ),
+                            SizedBox(width: 2),
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 14,
+                              color: appBarColorTheme,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -47,7 +80,7 @@ class CardCat extends StatelessWidget {
                 ),
                 Row(children: [
                   Text(isLoading ? (loadingData * 2) : cat!.origin),
-                  Spacer(),
+                  const Spacer(),
                   Text(isLoading
                       ? (loadingData * 2)
                       : cat!.intelligence.toString()),
@@ -64,24 +97,9 @@ class CardCat extends StatelessWidget {
     if (cat == null) {
       return const SizedBox();
     }
-    return SizedBox(
-      height: height * 0.6,
-      width: width,
-      child: Image.network(
-          getImageUrl.replaceAll(
-              "[referenceImage]", cat!.referenceImageId ?? ""),
-          fit: BoxFit.cover, loadingBuilder: (context, child, loadingProgress) {
-        return loadingProgress != null
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : child;
-      }, errorBuilder: (context, error, stackTrace) {
-        return Image.asset(
-          '$pathManagementImages$imageNoFound',
-          fit: BoxFit.scaleDown,
-        );
-      }),
-    );
+    return ImageContent(
+        height: height * 0.56,
+        width: width * 0.9,
+        reference: cat!.referenceImageId ?? "");
   }
 }
