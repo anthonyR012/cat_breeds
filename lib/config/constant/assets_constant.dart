@@ -16,6 +16,7 @@ const String imageNoFound = "no_image.png";
 
 //json
 const String animationCat = "animation_cat.json";
+const String animationLoad = "animation_load.json";
 
 
 

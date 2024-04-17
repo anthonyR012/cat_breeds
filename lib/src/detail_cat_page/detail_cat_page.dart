@@ -4,6 +4,7 @@ import 'package:catbreeds/config/constant/values_constant.dart';
 import 'package:catbreeds/model/cat_model.dart';
 import 'package:catbreeds/src/detail_cat_page/widgets/text_input_widget.dart';
 import 'package:catbreeds/src/widgets/image_content_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -26,10 +27,21 @@ class _DetailCatState extends State<DetailCat> {
     return Scaffold(
       body: Column(
         children: [
-          ImageContent(
+          SafeArea(
+            child: Container(
               height: height * 0.5,
               width: width,
-              reference: widget.cat.referenceImageId ?? ""),
+              clipBehavior: Clip.hardEdge,
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(rounded28),
+                      bottomRight: Radius.circular(rounded28))),
+              child: ImageContent(
+                  height: height * 0.5,
+                  width: width,
+                  reference: widget.cat.referenceImageId ?? ""),
+            ),
+          ),
           const SizedBox(
             height: spaceBetween10,
           ),

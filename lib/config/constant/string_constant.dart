@@ -1,5 +1,5 @@
 //title
-const String titleApp = "CatBreends";
+const String titleApp = "CatBreeds";
 
 //input string
 

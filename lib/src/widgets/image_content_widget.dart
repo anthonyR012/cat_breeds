@@ -1,6 +1,7 @@
 import 'package:catbreeds/config/constant/assets_constant.dart';
 import 'package:catbreeds/config/constant/end_point_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class ImageContent extends StatelessWidget {
   const ImageContent(
@@ -18,19 +19,30 @@ class ImageContent extends StatelessWidget {
       height: height,
       width: width,
       child: Image.network(
-          getImageUrl.replaceAll("[referenceImage]", reference),
-          fit: BoxFit.cover, loadingBuilder: (context, child, loadingProgress) {
-        return loadingProgress != null
-            ? const Center(
-                child: CircularProgressIndicator(),
+        getImageUrl.replaceAll("[referenceImage]", reference),
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          return loadingProgress != null
+              ? SizedBox(
+                width: width * 0.5,
+                  height: height * 0.5,
+                child: Lottie.asset(
+                    "$pathManagementJson$animationLoad",
+                    errorBuilder: (context, error, stackTrace) {
+                      return const SizedBox();
+                    },
+                    
+                    fit: BoxFit.fill,
+                  ),
               )
-            : child;
-      }, errorBuilder: (context, error, stackTrace) {
-        return Image.asset(
-          '$pathManagementImages$imageNoFound',
-          fit: BoxFit.scaleDown,
-        );
-      },
+              : child;
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return Image.asset(
+            '$pathManagementImages$imageNoFound',
+            fit: BoxFit.scaleDown,
+          );
+        },
       ),
     );
   }

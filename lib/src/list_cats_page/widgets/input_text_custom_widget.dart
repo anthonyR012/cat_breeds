@@ -48,7 +48,7 @@ class InputTextWidget extends StatelessWidget {
             fontFamily: fontFamilyHind,
             fontSize: messageSize),
         decoration: InputDecoration(
-          filled: true,
+          filled: false,
           errorStyle: const TextStyle(
               fontFamily: fontFamilyMontserrat,
               fontWeight: FontWeight.bold,
@@ -59,7 +59,10 @@ class InputTextWidget extends StatelessWidget {
             minWidth: iconInputSize,
             minHeight: iconInputSize,
           ),
-          // suffixIcon: iconSuffix,
+          suffixIcon: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(Icons.search),
+          ),
           prefixIconConstraints: const BoxConstraints(
             minWidth: iconInputSize,
             minHeight: iconInputSize,

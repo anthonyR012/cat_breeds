@@ -78,7 +78,7 @@ class _ListCatsPageState extends State<ListCatsPage> {
                       return CardCat(
                         cat: isLoading ? null : filterCats[index],
                         height: height * 0.4,
-                        width: width,
+                        width: width  * 0.85,
                         isLoading: isLoading,
                       );
                     },
