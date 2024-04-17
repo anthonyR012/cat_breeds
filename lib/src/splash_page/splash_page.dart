@@ -5,6 +5,7 @@ import 'package:catbreeds/config/env/environment.dart';
 import 'package:catbreeds/config/functions/navigator_widgets_function.dart';
 import 'package:catbreeds/src/list_cats_page/list_cats_page.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -22,15 +23,30 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-          child: Text(
-        titleApp,
-        style: TextStyle(
-            fontFamily: fontFamilyMontserrat,
-            fontSize: h1Size,
-            fontWeight: FontWeight.bold),
-      )),
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Lottie.asset(
+            "$pathManagementJson$animationCat",
+            errorBuilder: (context, error, stackTrace) {
+              print(error);
+              return SizedBox();
+            },
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.width * 0.9,
+            fit: BoxFit.fill,
+          ),
+          const Text(
+            titleApp,
+            style: TextStyle(
+                fontFamily: fontFamilyMontserrat,
+                fontSize: h1Size,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
 
