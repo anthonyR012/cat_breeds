@@ -23,6 +23,7 @@ final _borderSelected = OutlineInputBorder(
     borderSide: const BorderSide(
       width: 1,
       style: BorderStyle.solid,
+      color: appBarColorTheme,
     ));
 
 const _floatingLigth =

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:catbreeds/model/weigth_model.dart';
+import 'package:catbreeds/model/cat_weigth_model.dart';
 
 List<CatModel> catsModelFromJson(String str) =>
     List<CatModel>.from(json.decode(str).map((x) => CatModel.fromJson(x)));
@@ -45,7 +45,7 @@ class CatModel {
   final int shortLegs;
   final String wikipediaUrl;
   final int hypoallergenic;
-  final String referenceImageId;
+  final String? referenceImageId;
 
   CatModel({
     required this.weight,

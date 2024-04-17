@@ -7,7 +7,7 @@ const Color blackColorTheme = Color(0xFF000000);
 const Color backgroundColorTheme = Color(0xFFFAFAFA);
 const Color grayTextColorTheme = Color(0xFF858585);
 const Color appBarColorTheme = Color(0xFF091522);
-const Color borderColorTheme = Color(0xFF3A3A42);
+const Color borderColorTheme = Color.fromARGB(255, 221, 221, 222);
 const Color borderColorActiveTheme = Color(0xFFFFFFFF);
 Color linearColorTheme = const Color(0xFF176FF2).withOpacity(0.5);
 

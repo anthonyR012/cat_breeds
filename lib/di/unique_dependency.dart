@@ -5,10 +5,11 @@ import 'package:catbreeds/data/implement/cat_api_datasource.dart';
 import 'package:catbreeds/domain/implement/cat_implement.dart';
 import 'package:catbreeds/domain/repository/cat_repository.dart';
 import 'package:catbreeds/domain/use_case/do_get_cats.dart';
+import 'package:catbreeds/domain/use_case/do_get_image_cat.dart';
 
 Future<void> injectionModules() async {
-  // ---------------HOME MODULE--------------
-  // * [HOME]
+  // ---------------CAT MODULE--------------
+  // * [CAT]
   Env.sl.registerLazySingleton<CatDatasource>(
       () => CatApiDatasourceImplement(Env.sl(), Env.sl()));
   Env.sl.registerLazySingleton<CatRepository>(
@@ -16,8 +17,9 @@ Future<void> injectionModules() async {
 
 //USES CASES
   Env.sl.registerLazySingleton(() => DoGetCats(Env.sl()));
+  Env.sl.registerLazySingleton(() => DoGetImageCat(Env.sl()));
   //CUBITS
   Env.sl.registerLazySingleton(
-    () => CatCubit(Env.sl()),
+    () => CatCubit(Env.sl(),Env.sl()),
   );
 }

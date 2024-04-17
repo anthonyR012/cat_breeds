@@ -1,4 +1,5 @@
 import 'package:catbreeds/config/constant/string_constant.dart';
+import 'package:catbreeds/config/theme/theme.dart';
 import 'package:catbreeds/src/splash_page/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +12,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: titleApp,
       debugShowCheckedModeBanner: false,
-      home: SplashPage(),
+      home: const SplashPage(),
+      theme: ligthTheme,
     );
   }
 }
