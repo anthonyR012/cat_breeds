@@ -36,6 +36,11 @@ class GetCatsFilterLoaded extends CatState {
   List<Object> get props => [cats];
 }
 
+class CatNoFound extends CatState {
+  @override
+  List<Object> get props => [];
+}
+
 class GetImageCatLoaded extends CatState {
   final ImageCat image;
   const GetImageCatLoaded(this.image);

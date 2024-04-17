@@ -5,8 +5,12 @@ import 'package:catbreeds/config/constant/values_constant.dart';
 import 'package:flutter/material.dart';
 
 class CenterInfoWidget extends StatelessWidget {
-  const CenterInfoWidget({super.key, this.imageInfo = imageNoWifi});
+  const CenterInfoWidget(
+      {super.key,
+      this.imageInfo = imageNoWifi,
+      this.description = sentencesNoInternet});
   final String imageInfo;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +22,8 @@ class CenterInfoWidget extends StatelessWidget {
           Image(
             image: AssetImage('$pathManagementImages$imageInfo'),
           ),
-          const Text(sentencesNoInternet,
-              style: TextStyle(
+          Text(description,
+              style: const TextStyle(
                 fontFamily: fontFamilyMontserrat,
                 color: blackColorTheme,
                 fontWeight: FontWeight.bold,

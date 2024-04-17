@@ -6,10 +6,7 @@ import 'package:catbreeds/config/functions/navigator_widgets_function.dart';
 import 'package:catbreeds/model/cat_model.dart';
 import 'package:catbreeds/src/detail_cat_page/detail_cat_page.dart';
 import 'package:catbreeds/src/widgets/image_content_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CardCat extends StatelessWidget {
@@ -18,11 +15,13 @@ class CardCat extends StatelessWidget {
       required this.cat,
       required this.isLoading,
       required this.width,
+      required this.focusFilter,
       required this.height});
   final CatModel? cat;
   final bool isLoading;
   final double height;
   final double width;
+  final FocusNode focusFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +131,7 @@ class CardCat extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (cat == null) return;
+          focusFilter.unfocus();
           pushWidget(DetailCat(cat: cat!), context);
         },
         child: Container(

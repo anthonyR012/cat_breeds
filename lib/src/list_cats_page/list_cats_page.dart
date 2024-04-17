@@ -1,3 +1,4 @@
+import 'package:catbreeds/config/constant/assets_constant.dart';
 import 'package:catbreeds/config/constant/values_constant.dart';
 import 'package:catbreeds/config/env/environment.dart';
 import 'package:catbreeds/cubit/cat_cubit/cat_cubit.dart';
@@ -20,9 +21,9 @@ class _ListCatsPageState extends State<ListCatsPage> {
   double width = 0;
   double height = 0;
   final ScrollController _scrollController = ScrollController();
-  final TextEditingController _textEditingController = TextEditingController();
   List<CatModel> completeCats = [];
   List<CatModel> filterCats = [];
+  final FocusNode focusFilter = FocusNode();
 
   @override
   void initState() {
@@ -51,7 +52,7 @@ class _ListCatsPageState extends State<ListCatsPage> {
               width: width * 0.6,
               height: 30,
               onChanged: _filterText,
-              controller: _textEditingController,
+              focusNode: focusFilter,
             ),
           )),
           BlocProvider.value(
@@ -68,6 +69,12 @@ class _ListCatsPageState extends State<ListCatsPage> {
                   completeCats = state.cats;
                 } else if (state is GetCatsFilterLoaded) {
                   filterCats = state.cats;
+                } else if (state is CatNoFound) {
+                  return const SliverToBoxAdapter(
+                      child: CenterInfoWidget(
+                    description: "No se encontró coincidencias.",
+                    imageInfo: imageCat,
+                  ));
                 }
                 if (filterCats.isEmpty) {
                   filterCats = completeCats;
@@ -78,7 +85,8 @@ class _ListCatsPageState extends State<ListCatsPage> {
                       return CardCat(
                         cat: isLoading ? null : filterCats[index],
                         height: height * 0.4,
-                        width: width  * 0.85,
+                        width: width * 0.85,
+                        focusFilter: focusFilter,
                         isLoading: isLoading,
                       );
                     },
@@ -95,8 +103,15 @@ class _ListCatsPageState extends State<ListCatsPage> {
 
   void _filterText(String value) async {
     final filter = value.toLowerCase();
-    List<CatModel> cats =
-        completeCats.where((cat) => cat.name.toLowerCase().contains(filter)).toList();
-    Env.sl<CatCubit>().setState(GetCatsFilterLoaded(cats));
+    List<CatModel> cats = completeCats
+        .where((cat) =>
+            cat.name.toLowerCase().contains(filter) ||
+            cat.origin.toLowerCase().contains(filter))
+        .toList();
+    if (cats.isEmpty) {
+      Env.sl<CatCubit>().setState(CatNoFound());
+    } else {
+      Env.sl<CatCubit>().setState(GetCatsFilterLoaded(cats));
+    }
   }
 }

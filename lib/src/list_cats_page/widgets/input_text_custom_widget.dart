@@ -15,7 +15,7 @@ class InputTextWidget extends StatelessWidget {
       this.onChanged,
       this.onFocusListener,
       this.focusNode,
-      required this.controller,
+      this.controller,
       this.validator});
   final double width;
   final double? height;
@@ -24,7 +24,7 @@ class InputTextWidget extends StatelessWidget {
   final void Function(String)? onChanged;
   final void Function()? onFocusListener;
   final FocusNode? focusNode;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   final String textLabel;
 

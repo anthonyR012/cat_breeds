@@ -27,19 +27,32 @@ class _DetailCatState extends State<DetailCat> {
     return Scaffold(
       body: Column(
         children: [
-          SafeArea(
-            child: Container(
-              height: height * 0.5,
-              width: width,
-              clipBehavior: Clip.hardEdge,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(rounded28),
-                      bottomRight: Radius.circular(rounded28))),
-              child: ImageContent(
-                  height: height * 0.5,
-                  width: width,
-                  reference: widget.cat.referenceImageId ?? ""),
+          SizedBox(
+            height: height * 0.5,
+            width: width,
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      clipBehavior: Clip.hardEdge,
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(rounded28),
+                              bottomRight: Radius.circular(rounded28))),
+                      child: ImageContent(
+                          height: height * 0.5,
+                          width: width,
+                          reference: widget.cat.referenceImageId ?? ""),
+                    ),
+                  ),
+                  _getTopButton(
+                    15,
+                    Icons.arrow_back_ios_new_rounded,
+                    onTap: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -138,5 +151,39 @@ class _DetailCatState extends State<DetailCat> {
         ],
       ),
     );
+  }
+
+  Positioned _getTopButton(double topPadding, IconData icon,
+      {double? rigth, double? left, void Function()? onTap}) {
+    return Positioned(
+        top: topPadding + 10,
+        left: left,
+        right: rigth,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: onTap,
+            child: Container(
+              width: 33,
+              height: 33,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black12,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 2),
+                    ),
+                  ]),
+              child: Icon(
+                icon,
+                size: 14,
+              ),
+            ),
+          ),
+        ));
   }
 }
