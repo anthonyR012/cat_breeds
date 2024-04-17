@@ -2,14 +2,16 @@ import 'package:catbreeds/config/constant/assets_constant.dart';
 import 'package:catbreeds/config/constant/color_constant.dart';
 import 'package:catbreeds/config/constant/string_constant.dart';
 import 'package:catbreeds/config/constant/values_constant.dart';
+import 'package:catbreeds/config/env/environment.dart';
 import 'package:catbreeds/config/functions/navigator_widgets_function.dart';
+import 'package:catbreeds/cubit/cat_cubit/cat_cubit.dart';
 import 'package:catbreeds/model/cat_model.dart';
 import 'package:catbreeds/src/detail_cat_page/detail_cat_page.dart';
 import 'package:catbreeds/src/widgets/image_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CardCat extends StatelessWidget {
+class CardCat extends StatefulWidget {
   const CardCat(
       {super.key,
       required this.cat,
@@ -24,18 +26,24 @@ class CardCat extends StatelessWidget {
   final FocusNode focusFilter;
 
   @override
+  State<CardCat> createState() => _CardCatState();
+}
+
+class _CardCatState extends State<CardCat> {
+  String urlImage = "";
+  @override
   Widget build(BuildContext context) {
     return Skeletonizer(
-      enabled: isLoading,
+      enabled: widget.isLoading,
       child: Container(
         padding: const EdgeInsets.all(paddingInput15),
-        width: width,
-        height: height,
+        width: widget.width,
+        height: widget.height,
         child: Column(
           children: [
             SizedBox(
               width: double.infinity,
-              height: (height * 0.7) - paddingInput15,
+              height: (widget.height * 0.7) - paddingInput15,
               child: Stack(
                 children: [
                   Positioned.fill(
@@ -45,7 +53,8 @@ class CardCat extends StatelessWidget {
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(rounded28),
                                   topRight: Radius.circular(rounded28))),
-                          child: _getImageCard(height: height, width: width))),
+                          child: _getImageCard(
+                              height: widget.height, width: widget.width))),
                   Positioned.fill(
                       child: Container(
                     clipBehavior: Clip.hardEdge,
@@ -60,13 +69,15 @@ class CardCat extends StatelessWidget {
                     right: 15,
                     child: Container(
                       padding: const EdgeInsets.all(paddingInput5),
-                      width: width,
+                      width: widget.width,
                       child: Row(
                         children: [
                           SizedBox(
-                            width: width / 2.2,
+                            width: widget.width / 2.2,
                             child: Text(
-                              isLoading ? (loadingData * 2) : cat!.name,
+                              widget.isLoading
+                                  ? (loadingData * 2)
+                                  : widget.cat!.name,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               style: const TextStyle(
@@ -96,9 +107,9 @@ class CardCat extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Row(children: [
                   SizedBox(
-                    width: width / 2,
+                    width: widget.width / 2,
                     child: Text(
-                      isLoading ? (loadingData * 2) : cat!.origin,
+                      widget.isLoading ? (loadingData * 2) : widget.cat!.origin,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: const TextStyle(
@@ -109,9 +120,9 @@ class CardCat extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                      isLoading
+                      widget.isLoading
                           ? (loadingData * 2)
-                          : "Inteligencia: ${cat!.intelligence}",
+                          : "Inteligencia: ${widget.cat!.intelligence}",
                       style: const TextStyle(
                           fontFamily: fontFamilyMontserrat,
                           fontWeight: FontWeight.bold,
@@ -127,12 +138,12 @@ class CardCat extends StatelessWidget {
 
   Skeleton _getLabelButton(BuildContext context) {
     return Skeleton.leaf(
-      enabled: isLoading,
+      enabled: widget.isLoading,
       child: InkWell(
         onTap: () {
-          if (cat == null) return;
-          focusFilter.unfocus();
-          pushWidget(DetailCat(cat: cat!), context);
+          if (widget.cat == null) return;
+          widget.focusFilter.unfocus();
+          pushWidget(DetailCat(cat: widget.cat!, urlImage: urlImage), context);
         },
         child: Container(
           padding: const EdgeInsets.all(5),
@@ -163,10 +174,25 @@ class CardCat extends StatelessWidget {
   }
 
   Widget _getImageCard({required double width, required double height}) {
-    if (cat == null) {
+    if (widget.cat == null) {
       return const SizedBox();
     }
-    return ImageContent(
-        height: height, width: width, reference: cat!.referenceImageId ?? "");
+    return FutureBuilder<String>(
+        future: _getImageUrl(widget.cat!.referenceImageId ?? ""),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            urlImage = snapshot.data!;
+          }
+          return ImageContent(height: height, width: width, url: urlImage);
+        });
+  }
+
+  Future<String> _getImageUrl(String reference) async {
+    final state = await Env.sl<CatCubit>().getImage(referenceImage: reference);
+    String url = "";
+    if (state is GetImageCatLoaded) {
+      url = state.image.url;
+    }
+    return url;
   }
 }

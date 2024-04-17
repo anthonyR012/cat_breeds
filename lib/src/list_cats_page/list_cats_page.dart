@@ -46,15 +46,18 @@ class _ListCatsPageState extends State<ListCatsPage> {
         slivers: <Widget>[
           SliverAppBarCustom(context: context),
           SliverToBoxAdapter(
-              child: Padding(
-            padding: const EdgeInsets.all(paddingInput15),
-            child: InputTextWidget(
-              width: width * 0.6,
-              height: 30,
-              onChanged: _filterText,
-              focusNode: focusFilter,
-            ),
-          )),
+              child: RefreshIndicator(
+                onRefresh: () => Future.value(true),
+                child: Padding(
+                            padding: const EdgeInsets.all(paddingInput15),
+                            child: InputTextWidget(
+                width: width * 0.6,
+                height: 30,
+                onChanged: _filterText,
+                focusNode: focusFilter,
+                            ),
+                          ),
+              )),
           BlocProvider.value(
             value: Env.sl<CatCubit>(),
             child: BlocBuilder<CatCubit, CatState>(

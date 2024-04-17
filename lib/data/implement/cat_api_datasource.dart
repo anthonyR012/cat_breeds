@@ -12,32 +12,36 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 
 class CatApiDatasourceImplement extends CatDatasource {
-  CatApiDatasourceImplement(this._dio, this._network);
+  CatApiDatasourceImplement(this._dio, this._network, this.endPoint);
   final Dio _dio;
   final NetworkState _network;
+  final CatEndPoint endPoint;
 
   @override
-  Future<List<CatModel>> getCats() async {
+  Future<List<CatModel>> getCats({required String token}) async {
     throwIfError(
         _network.status == ConnectivityResult.none, failureConnectivity);
     final Options options = Options(headers: {'x-api-key': token});
-    final Response response = await _dio.get(getCatsUrl, options: options);
+    final Response response = await _dio
+        .get('${endPoint.baseUrl}${endPoint.getCatsUrl}', options: options);
     if (response.statusCode != HTTP_200_OK) {
-      readStatusResponseClient(response.statusCode, response.data["error"]);
+      readStatusResponseClient(response.statusCode, response.data);
     }
     List<CatModel> cats = catsModelFromJson(jsonEncode(response.data));
     return cats;
   }
 
   @override
-  Future<ImageCat> getImageCat({required String referenceImage}) async {
+  Future<ImageCat> getImageCat({required String referenceImage,required String token}) async {
     throwIfError(
         _network.status == ConnectivityResult.none, failureConnectivity);
     final Options options = Options(headers: {'x-api-key': token});
-    final Response response =
-        await _dio.get('https://cdn2.thecatapi.com/images/$referenceImage.jpg', options: options);
+    final String fetchUrl = '${endPoint.baseUrl}${endPoint.getImageCatUrl}$referenceImage';
+    final Response response = await _dio.get(
+        fetchUrl,
+        options: options);
     if (response.statusCode != HTTP_200_OK) {
-      readStatusResponseClient(response.statusCode, response.data["error"]);
+      readStatusResponseClient(response.statusCode, response.data);
     }
     ImageCat image = imageCatFromJson(jsonEncode(response.data));
     return image;

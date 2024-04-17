@@ -11,7 +11,7 @@ Future<void> injectionModules() async {
   // ---------------CAT MODULE--------------
   // * [CAT]
   Env.sl.registerLazySingleton<CatDatasource>(
-      () => CatApiDatasourceImplement(Env.sl(), Env.sl()));
+      () => CatApiDatasourceImplement(Env.sl(), Env.sl(),Env.sl()));
   Env.sl.registerLazySingleton<CatRepository>(
       () => CatImplement(Env.sl<CatDatasource>()));
 

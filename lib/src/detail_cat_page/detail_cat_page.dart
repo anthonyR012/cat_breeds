@@ -4,13 +4,12 @@ import 'package:catbreeds/config/constant/values_constant.dart';
 import 'package:catbreeds/model/cat_model.dart';
 import 'package:catbreeds/src/detail_cat_page/widgets/text_input_widget.dart';
 import 'package:catbreeds/src/widgets/image_content_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DetailCat extends StatefulWidget {
-  const DetailCat({super.key, required this.cat});
+  const DetailCat({super.key, required this.cat, required this.urlImage});
   final CatModel cat;
+  final String urlImage;
 
   @override
   State<DetailCat> createState() => _DetailCatState();
@@ -43,7 +42,7 @@ class _DetailCatState extends State<DetailCat> {
                       child: ImageContent(
                           height: height * 0.5,
                           width: width,
-                          reference: widget.cat.referenceImageId ?? ""),
+                          url: widget.urlImage),
                     ),
                   ),
                   _getTopButton(

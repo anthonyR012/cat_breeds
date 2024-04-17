@@ -11,9 +11,10 @@ class CatImplement extends CatRepository {
   CatImplement(this.catDatasource);
 
   @override
-  Future<Either<Failure, List<CatModel>>> getCats() async {
+  Future<Either<Failure, List<CatModel>>> getCats(
+      {required String token}) async {
     try {
-      List<CatModel> value = await catDatasource.getCats();
+      List<CatModel> value = await catDatasource.getCats(token: token);
       return Right(value);
     } catch (e) {
       if (e is ClientMessage) {
@@ -28,10 +29,10 @@ class CatImplement extends CatRepository {
 
   @override
   Future<Either<Failure, ImageCat>> getImageCat(
-      {required String referenceImage}) async {
+      {required String referenceImage, required String token}) async {
     try {
-      ImageCat value =
-          await catDatasource.getImageCat(referenceImage: referenceImage);
+      ImageCat value = await catDatasource.getImageCat(
+          referenceImage: referenceImage, token: token);
       return Right(value);
     } catch (e) {
       if (e is ClientMessage) {
