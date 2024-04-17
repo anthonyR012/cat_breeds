@@ -20,6 +20,10 @@ class CatCubit extends Cubit<CatState> {
     emit(_failureOrCats(failureOrCats));
   }
 
+  void setState(CatState state) async {
+    emit(state);
+  }
+
   Future<CatState> getImage({required String referenceImage}) async {
     final failureOrImage = await getImageCall(referenceImage: referenceImage);
     return _failureOrImageCat(failureOrImage);

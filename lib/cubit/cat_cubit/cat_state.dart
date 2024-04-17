@@ -28,6 +28,14 @@ class GetCatsLoaded extends CatState {
   List<Object> get props => [cats];
 }
 
+class GetCatsFilterLoaded extends CatState {
+  final List<CatModel> cats;
+  const GetCatsFilterLoaded(this.cats);
+
+  @override
+  List<Object> get props => [cats];
+}
+
 class GetImageCatLoaded extends CatState {
   final ImageCat image;
   const GetImageCatLoaded(this.image);

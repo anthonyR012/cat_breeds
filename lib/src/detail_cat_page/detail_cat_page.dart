@@ -26,7 +26,10 @@ class _DetailCatState extends State<DetailCat> {
     return Scaffold(
       body: Column(
         children: [
-          _getImageCard(width: width, height: height),
+          ImageContent(
+              height: height * 0.5,
+              width: width,
+              reference: widget.cat.referenceImageId ?? ""),
           const SizedBox(
             height: spaceBetween10,
           ),
@@ -123,12 +126,5 @@ class _DetailCatState extends State<DetailCat> {
         ],
       ),
     );
-  }
-
-  Widget _getImageCard({required double width, required double height}) {
-    return ImageContent(
-        height: height * 0.5,
-        width: width,
-        reference: widget.cat.referenceImageId ?? "");
   }
 }

@@ -1,3 +1,4 @@
+
 import 'package:catbreeds/config/constant/assets_constant.dart';
 import 'package:catbreeds/config/constant/string_constant.dart';
 import 'package:catbreeds/config/constant/values_constant.dart';
@@ -24,39 +25,38 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(
-            "$pathManagementJson$animationCat",
-            errorBuilder: (context, error, stackTrace) {
-              print(error);
-              return SizedBox();
-            },
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.width * 0.9,
-            fit: BoxFit.fill,
-          ),
-          const Text(
-            titleApp,
-            style: TextStyle(
-                fontFamily: fontFamilyMontserrat,
-                fontSize: h1Size,
-                fontWeight: FontWeight.bold),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Lottie.asset(
+              "$pathManagementJson$animationCat",
+              errorBuilder: (context, error, stackTrace) {
+                return const SizedBox();
+              },
+              onLoaded: (value) {
+                Future.delayed(value.duration, _goToListCats);
+              },
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: MediaQuery.of(context).size.height * 0.5,
+              fit: BoxFit.fill,
+            ),
+            const Text(
+              titleApp,
+              style: TextStyle(
+                  fontFamily: fontFamilyMontserrat,
+                  fontSize: h1Size,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   void _initEnvironment() async {
     if (!Env.isAlreadyInyected) await Env.initEnviroment();
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      setState(() {
-        _goToListCats();
-      });
-    });
   }
 
   void _goToListCats() {
