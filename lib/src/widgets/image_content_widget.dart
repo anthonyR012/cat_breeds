@@ -14,16 +14,20 @@ class ImageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget loadWidget = SizedBox(
-      width: width * 0.5,
-      height: height * 0.5,
-      child: Lottie.asset(
-        "$pathManagementJson$animationLoad",
-        errorBuilder: (context, error, stackTrace) {
-          return const SizedBox();
-        },
-        fit: BoxFit.fill,
-      ),
+    Widget loadWidget = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Lottie.asset(
+          "$pathManagementJson$animationLoad",
+          width: 90,
+          height: 90,
+          errorBuilder: (context, error, stackTrace) {
+            return const SizedBox();
+          },
+          fit: BoxFit.fill,
+        ),
+      ],
     );
     return SizedBox(
         height: height,
