@@ -1,4 +1,3 @@
-
 import 'package:catbreeds/config/constant/assets_constant.dart';
 import 'package:catbreeds/config/constant/string_constant.dart';
 import 'package:catbreeds/config/constant/values_constant.dart';
@@ -16,11 +15,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    _initEnvironment();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +31,9 @@ class _SplashPageState extends State<SplashPage> {
                 return const SizedBox();
               },
               onLoaded: (value) {
-                Future.delayed(value.duration, _goToListCats);
+                int duration = value.duration.inMilliseconds ~/ 2;
+                _initEnvironment().then((value) => Future.delayed(
+                    Duration(milliseconds: duration), _goToListCats));
               },
               width: MediaQuery.of(context).size.width * 0.5,
               height: MediaQuery.of(context).size.height * 0.5,
@@ -55,7 +52,7 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  void _initEnvironment() async {
+  Future<void> _initEnvironment() async {
     if (!Env.isAlreadyInyected) await Env.initEnviroment();
   }
 
