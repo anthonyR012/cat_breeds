@@ -8,7 +8,7 @@ String imageCatToJson(ImageCat data) => json.encode(data.toJson());
 
 class ImageCat {
     String id;
-    String url;
+    String? url;
     int width;
     int height;
 
@@ -21,7 +21,7 @@ class ImageCat {
 
     factory ImageCat.fromJson(Map<String, dynamic> json) => ImageCat(
         id: toStringMap(json["id"]),
-        url: toStringMap(json["url"]),
+        url: json["url"],
         width: toIntMap(json["width"]),
         height: toIntMap(json["height"]),
     );

@@ -180,10 +180,16 @@ class _CardCatState extends State<CardCat> {
     return FutureBuilder<String>(
         future: _getImageUrl(widget.cat!.referenceImageId ?? ""),
         builder: (context, snapshot) {
+          bool isLoading = snapshot.connectionState == ConnectionState.waiting;
           if (snapshot.hasData) {
             urlImage = snapshot.data!;
           }
-          return ImageContent(height: height, width: width, url: urlImage);
+          return ImageContent(
+            height: height,
+            width: width,
+            url: urlImage,
+            isLoading: isLoading,
+          );
         });
   }
 
@@ -191,7 +197,7 @@ class _CardCatState extends State<CardCat> {
     final state = await Env.sl<CatCubit>().getImage(referenceImage: reference);
     String url = "";
     if (state is GetImageCatLoaded) {
-      url = state.image.url;
+      url = state.image.url ?? "";
     }
     return url;
   }

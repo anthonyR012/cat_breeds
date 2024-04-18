@@ -5,12 +5,14 @@ import 'package:lottie/lottie.dart';
 class ImageContent extends StatelessWidget {
   const ImageContent(
       {super.key,
+      this.isLoading = false,
       required this.height,
       required this.width,
       required this.url});
   final double height;
   final double width;
   final String url;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,10 @@ class ImageContent extends StatelessWidget {
         ),
       ],
     );
+    Widget errorWidget = Image.asset(
+      '$pathManagementImages$imageNoFound',
+      fit: BoxFit.scaleDown,
+    );
     return SizedBox(
         height: height,
         width: width,
@@ -40,12 +46,11 @@ class ImageContent extends StatelessWidget {
                   return loadingProgress != null ? loadWidget : child;
                 },
                 errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    '$pathManagementImages$imageNoFound',
-                    fit: BoxFit.scaleDown,
-                  );
+                  return errorWidget;
                 },
               )
-            : loadWidget);
+            : isLoading
+                ? loadWidget
+                : errorWidget);
   }
 }

@@ -62,7 +62,7 @@ class _DetailCatState extends State<DetailCat> {
             trackVisibility: true,
             thumbVisibility: true,
             interactive: true,
-            thickness: 4.0,
+            thickness: 6.0,
             radius: const Radius.circular(4.0),
             child: SingleChildScrollView(
               child: Padding(
